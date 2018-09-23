@@ -1,0 +1,6 @@
+.completed {
+    text-decoration: line-through;
+}
+.filtered {
+    font-weight: bold;
+}
