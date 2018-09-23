@@ -5,16 +5,16 @@ import { filter } from '../constant';
 const Filter = ({ filterBy }) => {
   return (
     <p>
-        Filtered By: {' | '}
-		{Object.keys(filter).map(k => (
-				<a
-					key={k}
-					href="#"
-					className={k === filterBy ? 'filtered' : null}
-				>
+        Filtered By: {'  '}
+		{Object.keys(filter).map(k =>
+			<span key={k}>
+				<a href="#" className={k === filterBy ? 'filtered' : null}>
 					{k}
 				</a>
-		))}
+				{' | '}
+			</span>
+
+		)}
     </p>
   );
 };
