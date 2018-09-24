@@ -2,14 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AddTodoForm = () => {
-  const onSubmit = (e) => {
-	  console.log(e.target.value);
-  };
-  return (
-    <form onSubmit={() => console.log()}>
-		<label>To-do</label>
-    </form>
-  );
+	let todo;
+
+  	const onSubmit = (e) => {
+		e.preventDefault();
+		console.log(todo.value);
+		todo.value = '';
+  	};
+	return (
+		<form onSubmit={onSubmit}>
+			<label>New todo:</label>
+			<input type="text" ref={input => todo = input} />
+			<button type="submit">ADD</button>
+		</form>
+	);
 };
 
 AddTodoForm.propTypes = {};

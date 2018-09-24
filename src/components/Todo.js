@@ -1,16 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// import { filter } from '../constant';
+// import changeFilter from '../actions/changeFilter';
 import Filter from './Filter';
+import AddTodoForm from './AddTodoForm';
 
 import './Todo.css';
 
-const Todo = ({ data }) => {
+const Todo = ({ todos, filter }) => {
+  const isDisplay = completed => {
+  	const predicat = filter === 'all' ? true : (filter === 'completed' ? completed : !completed);
+  	console.log({ predicat, filter });
+  };
+
+  const filtered = todos.filter(x => isDisplay(x.completed));
+  console.log(filtered);
+
   return (
     <div>
-		<Filter filterBy={data.filter}/>
-		<h3>Add todo</h3>
+		<br/>
+		<AddTodoForm />
+		<hr/>
+		<Filter filterBy={filter}/>
+		<h4>Todo list:</h4>
 		<ul>
-			{data.todos.map(todo =>
+			{filtered.map(todo =>
 				<li
 					key={todo.title}
 					className={todo.completed ? 'completed' : ''}
@@ -24,10 +39,11 @@ const Todo = ({ data }) => {
 };
 
 Todo.propTypes = {
-	data: PropTypes.object.isRequired,
-};
-Todo.defaultProps = {
-	data: []
+	todos: PropTypes.array.isRequired,
+	filter: PropTypes.string.isRequired,
 };
 
-export default Todo;
+const mapStateToProps = ({ filter, todos }) => ({ filter, todos });
+
+
+export default connect(mapStateToProps)(Todo);
