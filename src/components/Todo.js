@@ -1,21 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { filter } from '../constant';
-// import changeFilter from '../actions/changeFilter';
+
 import Filter from './Filter';
 import AddTodoForm from './AddTodoForm';
 
 import './Todo.css';
 
 const Todo = ({ todos, filter }) => {
-  const isDisplay = completed => {
-  	const predicat = filter === 'all' ? true : (filter === 'completed' ? completed : !completed);
-  	console.log({ predicat, filter });
-  };
-
-  const filtered = todos.filter(x => isDisplay(x.completed));
-  console.log(filtered);
+  const filtered = filter === 'all' ?
+	  todos :
+	  todos.filter(x => filter === 'completed' ? !x.completed : x.completed);
 
   return (
     <div>
@@ -26,10 +21,7 @@ const Todo = ({ todos, filter }) => {
 		<h4>Todo list:</h4>
 		<ul>
 			{filtered.map(todo =>
-				<li
-					key={todo.title}
-					className={todo.completed ? 'completed' : ''}
-				>
+				<li	key={todo.title} className={todo.completed ? 'completed' : ''}>
 					{todo.title}
 				</li>
 			)}
