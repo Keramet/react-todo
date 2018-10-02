@@ -4,3 +4,6 @@
 .filtered {
     font-weight: bold;
 }
+.todo-list {
+    cursor: pointer;
+}

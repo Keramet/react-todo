@@ -12,7 +12,15 @@ const todosReducer = (state = [], action) => {
 			];
 		case TOGGLE_TODO:
 			console.log('toggleing todo. Action:', action);
-			return state;
+			return state.map((x) => {
+				if (x.title === action.payload) {
+					return {
+						title: x.title,
+						completed: !x.completed,
+					};
+				}
+				return x;
+			});
 		default:
 			return state;
 	}

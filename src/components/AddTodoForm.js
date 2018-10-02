@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import addTodo from '../actions/addTodo';
 
-const AddTodoForm = () => {
+const AddTodoForm = ({ onAddTodo }) => {
 	let todo;
 
   	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(todo.value);
+		onAddTodo(todo.value);
 		todo.value = '';
   	};
 	return (
@@ -18,7 +20,12 @@ const AddTodoForm = () => {
 	);
 };
 
-AddTodoForm.propTypes = {};
-AddTodoForm.defaultProps = {};
+AddTodoForm.propTypes = {
+	onAddTodo: PropTypes.func.isRequired,
+};
 
-export default AddTodoForm;
+const mapDispatchToProps = {
+	onAddTodo: addTodo,
+};
+
+export default connect(null, mapDispatchToProps)(AddTodoForm);
